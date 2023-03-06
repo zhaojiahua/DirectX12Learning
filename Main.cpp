@@ -38,5 +38,51 @@ int WINAPI WinMain(HINSTANCE thisInstance, HINSTANCE preInstance, LPSTR cmdLine,
 	ComPtr<ID3D12Resource> pIVertexBuffer;
 	ComPtr<ID3D12Fence> pIFence;
 
+	//注册和创建窗口
+	WNDCLASSEX wcex;
+	wcex.cbClsExtra = 0; wcex.cbWndExtra = 0;
+	wcex.lpszClassName = GRS_WND_CLASS_NAME;
+	wcex.hInstance = thisInstance;
+	wcex.cbSize = sizeof(WNDCLASSEX);
+	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);	//防止无聊的重绘
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hIcon = nullptr;
+	wcex.hIconSm = NULL;
+	wcex.lpszMenuName = nullptr;
+	wcex.style = CS_GLOBALCLASS;	//去掉redraw类型
+	wcex.lpfnWndProc = (WNDPROC)WindProc;
+
+	ATOM registerAtom = RegisterClassEx(&wcex);
+	if (!registerAtom) {
+		MessageBox(NULL, L"register window failed", L"Error", MB_OK);
+		return 1;
+	}
+	RECT rect = { 0,0,iwidth,iheight };
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, NULL);
+
+	hwnd = CreateWindowEx(
+		NULL,
+		GRS_WND_CLASS_NAME,
+		GRS_WND_TITLE,
+		WS_OVERLAPPED | WS_SYSMENU,
+		100, 100,
+		iwidth, iheight,
+		nullptr,
+		nullptr,
+		preInstance,
+		nullptr
+	);
+
+	if (!hwnd) {
+		MessageBox(NULL, L"create window failed", L"Error", MB_OK);
+		return 1;
+	}
+
+	while (true)
+	{
+		ShowWindow(hwnd, SW_SHOW);
+		UpdateWindow(hwnd);
+	}
+
 	return 0;
 }

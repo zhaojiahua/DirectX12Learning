@@ -39,3 +39,16 @@ struct ZJH_Vertex
 	XMFLOAT3 mPosition;
 	XMFLOAT4 mColor;
 };
+
+//窗口回调函数
+LRESULT WindProc(HWND hwnd,UINT msg,WPARAM wparam,LPARAM lparam) {
+	switch (msg)
+	{
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		return 0;
+	default:
+		break;
+	}
+	return DefWindowProc(hwnd, msg, wparam, lparam);
+}
