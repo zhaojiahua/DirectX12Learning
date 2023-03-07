@@ -3,13 +3,14 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <tchar.h>
-//Ìí¼ÓwrlÖ§³Ö,·½±ãÊ¹ÓÃCom
+//ï¿½ï¿½ï¿½wrlÖ§ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Com
 #include <wrl.h>
 using namespace Microsoft;
 using namespace Microsoft::WRL;
 #include <dxgi1_6.h>
 #include <DirectXMath.h>
 using namespace DirectX;
+using namespace std;
 
 //for d3d
 #include <d3d12.h>
@@ -26,21 +27,21 @@ using namespace DirectX;
 #include <dxgidebug.h>
 #endif //  defined(_DEBUG)
 
-#include "DirectX12/d3dx12.h"//Î¢ÈíÌá¹©µÄDX¹¤¾ß
+#include "DirectX12/d3dx12.h"//Î¢ï¿½ï¿½ï¿½á¹©ï¿½ï¿½DXï¿½ï¿½ï¿½ï¿½
 
 #define GRS_WND_CLASS_NAME _T("Game Window Class")
 #define GRS_WND_TITLE			_T("DirectX12 Trigger Sample")
 
-#define GRS_THROW_IF_FAILED(hr) if (FAILED(hr)){throw CGRSCOMException(hr);}
+#define GRS_THROW_IF_FAILED(hr) if (FAILED(hr)){throw hr;}
 
-//¶¨Òå×Ô¼ºµÄ3DÊý¾Ý½á¹¹
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½3Dï¿½ï¿½ï¿½Ý½á¹¹
 struct ZJH_Vertex
 {
 	XMFLOAT3 mPosition;
 	XMFLOAT4 mColor;
 };
 
-//´°¿Ú»Øµ÷º¯Êý
+//ï¿½ï¿½ï¿½Ú»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 LRESULT WindProc(HWND hwnd,UINT msg,WPARAM wparam,LPARAM lparam) {
 	switch (msg)
 	{
